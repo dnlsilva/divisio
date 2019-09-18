@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {View, StyleSheet, Text} from 'react-native';
+import {getConversation} from '~/services/api';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,10 +16,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Main = () => (
-  <View style={styles.container}>
-    <Text style={styles.welcome}>Olá Mundo</Text>
-  </View>
-);
+const Main = () => {
+  const data = getConversation();
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcome}>Olá Mundo</Text>
+    </View>
+  );
+};
 
 export default Main;

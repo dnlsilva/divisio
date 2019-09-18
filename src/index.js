@@ -1,7 +1,9 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
 
-import '~/config/ReactotronConfig';
+if (__DEV__) {
+  import('~/config/ReactotronConfig');
+}
 
 import Routes from '~/routes';
 
