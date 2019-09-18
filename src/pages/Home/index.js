@@ -1,9 +1,10 @@
-import React, {useRef} from 'react';
-import {Image} from 'react-native';
+import React, {useRef, useContext} from 'react';
+import {Image, Alert} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
 import {logo} from '~/assets';
+import {Store} from '~/store';
 
 import {
   Container,
@@ -17,16 +18,24 @@ import {
 
 const UsuarioSchema = Yup.object().shape({
   name: Yup.string()
-    .min('', 'Nome muito curto!')
+    .min(2, 'Nome muito curto!')
     .max(50, 'Nome muito longo!')
     .required('Campo requirido'),
 });
 
-const Home = () => {
+const Home = ({navigation}) => {
   const inputSend = useRef();
-  const setUser = values => {
-    console.tron.log(values);
+  const store = useContext(Store);
+  const setUser = async values => {
+    try {
+      await store.setUser({name: values});
+      await store.setLogged(true);
+      navigation.navigate('UserList');
+    } catch (error) {
+      Alert.alert('Houve um erro, tente novamente.');
+    }
   };
+
   return (
     <Container>
       <Formik
@@ -40,7 +49,6 @@ const Home = () => {
             </Divisory>
             <Divisory>
               <TextLabel>Digite seu nome:</TextLabel>
-
               <Input
                 onSubmitEditing={props.handleSubmit}
                 onChangeText={props.handleChange('name')}

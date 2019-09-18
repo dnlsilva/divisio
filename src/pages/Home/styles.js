@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 import {color1, color2, color3, blue, red} from '~/helpers/colors';
 
