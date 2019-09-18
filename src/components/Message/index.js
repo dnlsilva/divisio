@@ -1,39 +1,31 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 import Balloon from 'react-native-balloon';
 
-const Message = ({incoming, text}) => {
+import {green, blue} from '~/helpers/colors';
+
+import {Container, WordIcon, WordText, TextContainer, Text} from './styles';
+
+const Message = ({message: {direction, value}, name}) => {
+  const inc = direction === 'incoming';
   return (
-    <View
-      style={[
-        {
-          flexDirection: 'row',
-          alignContent: 'center',
-          alignItems: incoming ? 'flex-end' : 'flex-start',
-          justifyContent: incoming ? 'flex-start' : 'flex-end',
-        },
-        incoming ? {marginLeft: 10} : {marginRight: 10},
-      ]}>
-      <View style={{width: 30, height: 30, borderRadius: 20}} />
+    <Container inc={inc}>
+      {inc && (
+        <WordIcon>
+          <WordText>{name && name.charAt(0)}</WordText>
+        </WordIcon>
+      )}
       <Balloon
         triangleOffset="50%"
-        backgroundColor={incoming ? '#036564' : '#d6efd3'}
+        backgroundColor={inc ? green : blue}
         borderColor="transparent"
         borderRadius={10}
-        triangleSize={incoming ? 5 : 1}
-        triangleDirection={incoming ? 'left' : 'right'}>
-        <View style={{padding: 8}}>
-          <Text
-            style={{
-              marginTop: 8,
-              fontSize: 15,
-              color: 'black',
-            }}>
-            {text}
-          </Text>
-        </View>
+        triangleSize={inc ? 5 : 1}
+        triangleDirection={inc ? 'left' : 'right'}>
+        <TextContainer>
+          <Text>{value}</Text>
+        </TextContainer>
       </Balloon>
-    </View>
+    </Container>
   );
 };
 

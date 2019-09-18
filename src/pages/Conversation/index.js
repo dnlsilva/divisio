@@ -33,13 +33,13 @@ const Conversation = ({navigation}) => {
       <FlatList
         onRefresh={() => handleReload()}
         refreshing={loading}
-        data={conversationList}
+        data={[...conversationList].reverse()}
         style={style.flex}
+        inverted
         renderItem={({item}) => (
-          <Message incoming={item.direction === 'incoming'} text={item.value} />
+          <Message message={item} name={selectedUser.name} />
         )}
         keyExtractor={i => i._id}
-        inverted
         ListEmptyComponent={
           loading === false && (
             <EmptyView>
