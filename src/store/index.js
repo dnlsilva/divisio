@@ -1,25 +1,28 @@
 import React, {useState} from 'react';
 
 export const Store = React.createContext({
-  user: {name: ''},
+  userName: '',
   logged: false,
-  setLogged: () => {},
-  setUser: () => {},
+  selectedUser: null,
+  setUserName: () => {},
+  setSelectedUser: () => {},
 });
 
 export const Provider = ({children}) => {
-  const setLogged = logged => {
-    setState({...state, logged: logged});
+  const setUserName = name => {
+    setState({...state, userName: name, logged: true});
   };
-  const setUser = obj => {
-    setState({...state, user: obj});
+
+  const setSelectedUser = user => {
+    setState({...state, selectedUser: user});
   };
 
   const initState = {
-    user: {name: ''},
+    userName: '',
     logged: false,
-    setUser: setUser,
-    setLogged: setLogged,
+    selectedUser: null,
+    setUserName: setUserName,
+    setSelectedUser: setSelectedUser,
   };
 
   const [state, setState] = useState(initState);

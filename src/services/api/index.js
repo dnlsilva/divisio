@@ -15,8 +15,8 @@ const getConversation = async () => {
 
 const getConversationById = async id => {
   try {
-    const conversation = await api(`conversation/${id}`);
-    return conversation;
+    const {data} = await api(`conversation/${id}`);
+    return data;
   } catch (error) {
     return error;
   }

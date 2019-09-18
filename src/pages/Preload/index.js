@@ -2,15 +2,23 @@ import React, {useContext, useEffect} from 'react';
 import {Store} from '~/store';
 import {Loading} from '~/components';
 
+import resetAction from '~/helpers/navigationHandler';
+
 const Preload = ({navigation}) => {
   const {logged} = useContext(Store);
+
   useEffect(() => {
-    if (logged) {
-      navigation.navigate('Home');
-      return;
+    async function initialize() {
+      setTimeout(() => {
+        if (logged) {
+          resetAction(navigation, 'UserList');
+          return;
+        }
+        resetAction(navigation, 'Home');
+        return;
+      }, 500);
     }
-    navigation.navigate('Home');
-    return;
+    initialize();
   }, [logged, navigation]);
   return <Loading />;
 };

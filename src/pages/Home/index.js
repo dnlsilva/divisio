@@ -25,11 +25,10 @@ const UsuarioSchema = Yup.object().shape({
 
 const Home = ({navigation}) => {
   const inputSend = useRef();
-  const store = useContext(Store);
-  const setUser = async values => {
+  const {setUserName} = useContext(Store);
+  const setUser = async ({name}) => {
     try {
-      await store.setUser({name: values});
-      await store.setLogged(true);
+      setUserName(name);
       navigation.navigate('UserList');
     } catch (error) {
       Alert.alert('Houve um erro, tente novamente.');
