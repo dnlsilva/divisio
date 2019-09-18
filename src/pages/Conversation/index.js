@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 
+import {Message} from '~/components';
+
 import {Store} from '~/store';
 import {getConversationById} from '~/services/api';
 
@@ -33,7 +35,9 @@ const Conversation = ({navigation}) => {
         refreshing={loading}
         data={conversationList}
         style={style.flex}
-        renderItem={({item}) => <EmptyText>{item.value}</EmptyText>}
+        renderItem={({item}) => (
+          <Message incoming={item.direction === 'incoming'} text={item.value} />
+        )}
         keyExtractor={i => i._id}
         inverted
         ListEmptyComponent={
