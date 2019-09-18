@@ -5,11 +5,12 @@ if (__DEV__) {
   import('~/config/ReactotronConfig');
 }
 
+import {color3} from '~/helpers/colors';
 import Routes from '~/routes';
 
 const App = () => (
   <>
-    <StatusBar backgroundColor="#262626" />
+    <StatusBar backgroundColor={color3} />
     <Routes />
   </>
 );
