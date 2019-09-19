@@ -1,11 +1,11 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {Loading} from '~/components';
+import {Card} from '~/components';
 
-describe('Loading', () => {
+describe('Card', () => {
   describe('Rendering', () => {
     it('should match to snapshot', () => {
-      const component = shallow(<Loading />);
+      const component = shallow(<Card />);
       expect(component).toMatchSnapshot();
     });
   });

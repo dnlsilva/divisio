@@ -18,6 +18,7 @@ const MessageInput = ({sending, textCallback, sendCallback, text}) => {
     <Container>
       <TextInputContainer>
         <TextInput
+          testID="textCallback"
           underlineColorAndroid="transparent"
           multiline
           value={text}
@@ -26,7 +27,9 @@ const MessageInput = ({sending, textCallback, sendCallback, text}) => {
         />
       </TextInputContainer>
       <SendContainer>
-        <SendIcon onPress={text.length ? sendCallback : () => {}}>
+        <SendIcon
+          testID="sendCallback"
+          onPress={text.length ? sendCallback : () => {}}>
           {sending ? (
             <ActivityIndicator size="large" color={color4} />
           ) : (
