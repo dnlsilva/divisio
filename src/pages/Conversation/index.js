@@ -1,17 +1,20 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 
-import {Message} from '~/components';
-
 import {Store} from '~/store';
 import {getConversationById} from '~/services/api';
 
+import {Message, MessageInput} from '~/components';
 import {EmptyText, EmptyView, Container} from './style';
 
 const Conversation = ({navigation}) => {
   const {selectedUser} = useContext(Store);
+
   const [conversationList, setConversationList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [messageText, setMessageText] = useState('');
+  const [sending, setSending] = useState(false);
+
   useEffect(() => {
     async function initialize() {
       setLoading(true);
@@ -27,6 +30,11 @@ const Conversation = ({navigation}) => {
   }, [selectedUser._id]);
 
   const handleReload = async () => {};
+
+  const handleSend = () => {
+    console.tron.log('here');
+    setSending(true);
+  };
 
   return (
     <Container>
@@ -48,6 +56,12 @@ const Conversation = ({navigation}) => {
           )
         }
         contentContainerStyle={style.contentContainerStyle}
+      />
+      <MessageInput
+        text={messageText}
+        textCallback={i => setMessageText(i)}
+        sending={sending}
+        sendCallback={() => handleSend()}
       />
     </Container>
   );

@@ -19,5 +19,4 @@ export const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-content: center;
-  padding: 10px;
 `;
