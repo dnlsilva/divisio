@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Balloon from 'react-native-balloon';
 
 import {green, blue} from '~/helpers/colors';
@@ -27,6 +28,16 @@ const Message = ({message: {direction, value}, name}) => {
       </Balloon>
     </Container>
   );
+};
+
+Message.propTypes = {
+  message: PropTypes.oneOfType(PropTypes.object),
+  name: PropTypes.string,
+};
+
+Message.defaultProps = {
+  message: {direction: 'incoming', value: ''},
+  name: '',
 };
 
 export default Message;

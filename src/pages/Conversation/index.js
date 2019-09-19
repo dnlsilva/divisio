@@ -7,7 +7,9 @@ import {getConversationById} from '~/services/api';
 import {Message, MessageInput} from '~/components';
 import {EmptyText, EmptyView, Container} from './style';
 
-const Conversation = ({navigation}) => {
+import {getData, storeData} from '~/helpers/asyncStorage';
+
+const Conversation = () => {
   const {selectedUser} = useContext(Store);
 
   const [conversationList, setConversationList] = useState([]);
@@ -20,7 +22,11 @@ const Conversation = ({navigation}) => {
       setLoading(true);
       try {
         const {messages} = await getConversationById(selectedUser._id);
-        setConversationList(messages);
+        const async = await getData(`conversation/${selectedUser._id}`);
+        let itens = [];
+        messages && messages.length && (await messages.map(i => itens.push(i)));
+        async && async.length && (await async.map(i => itens.push(i)));
+        setConversationList(itens);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -31,9 +37,21 @@ const Conversation = ({navigation}) => {
 
   const handleReload = async () => {};
 
-  const handleSend = () => {
-    console.tron.log('here');
+  const handleSend = async () => {
     setSending(true);
+    const data = {
+      _id: Math.round(Math.random() * 36 ** 12).toString(36),
+      value: messageText,
+      direction: 'outgoing',
+      conversation: conversationList.length
+        ? conversationList[0].conversation
+        : Math.round(Math.random() * 36 ** 12).toString(36),
+      __v: 0,
+    };
+    setConversationList([...conversationList, data]);
+    setMessageText('');
+    await storeData(`conversation/${selectedUser._id}`, data);
+    setSending(false);
   };
 
   return (

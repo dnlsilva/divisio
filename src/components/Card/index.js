@@ -50,7 +50,7 @@ const Card = ({
   );
 };
 
-Card.prototype = {
+Card.propTypes = {
   backgroundColor: PropTypes.string,
   elevation: PropTypes.number,
   cornerRadius: PropTypes.number,

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {ActivityIndicator} from 'react-native';
 
 import {color4} from '~/helpers/colors';
@@ -21,8 +22,6 @@ const MessageInput = ({sending, textCallback, sendCallback, text}) => {
           multiline
           value={text}
           onChangeText={textCallback}
-          //TODO
-          // onContentSizeChange={this.heightChange.bind(this)}
           placeholder={'Digite uma mensagem'}
         />
       </TextInputContainer>
@@ -31,12 +30,26 @@ const MessageInput = ({sending, textCallback, sendCallback, text}) => {
           {sending ? (
             <ActivityIndicator size="large" color={color4} />
           ) : (
-            <StyledIcon name="rocket" disabled={!!text.length} />
+            <StyledIcon name="send" disabled={!!text.length} />
           )}
         </SendIcon>
       </SendContainer>
     </Container>
   );
+};
+
+MessageInput.propTypes = {
+  sending: PropTypes.bool,
+  textCallback: PropTypes.func,
+  sendCallback: PropTypes.func,
+  text: PropTypes.string,
+};
+
+MessageInput.defaultProps = {
+  sending: false,
+  textCallback: () => {},
+  sendCallback: () => {},
+  text: '',
 };
 
 export default MessageInput;
