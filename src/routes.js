@@ -1,5 +1,6 @@
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import {Platform} from 'react-native';
 
 import Home from '~/pages/Home';
 import Preload from '~/pages/Preload';
@@ -24,13 +25,13 @@ const Routes = createAppContainer(
       UserList: {
         screen: UserList,
         navigationOptions: {
-          header: null,
+          header: Platform.OS === 'android' && null,
         },
       },
       Conversation: {
         screen: Conversation,
         navigationOptions: {
-          header: null,
+          header: Platform.OS === 'android' && null,
         },
       },
     },
